@@ -47,3 +47,9 @@ RUN apt-get update \
   && cmake ../openMVS -DCMAKE_BUILD_TYPE=Release -DEIGEN_DIR=/usr/include/eigen3/3.2.9 -DVCG_DIR="/home/vcglib" -DOpenMVS_USE_CUDA=OFF \
   && make -j4 \
   && make install
+
+  COPY sfm_pipeline /home/sfm_pipeline
+  WORKDIR /home/sfm_pipeline
+  RUN python3 setup.py sdist \
+  && pip3 install -e .
+  WORKDIR /home
